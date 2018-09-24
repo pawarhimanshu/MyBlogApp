@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "898647636007",
+    "firebase_url": "https://my-blog-cefa2.firebaseio.com",
+    "project_id": "my-blog-cefa2",
+    "storage_bucket": "my-blog-cefa2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898647636007:android:ff3bf6185ca0b43b",
+        "android_client_info": {
+          "package_name": "com.example.himanshu.myblogapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898647636007-p89l6253hft09fa3qjvjmag1p3mapj0j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.himanshu.myblogapp",
+            "certificate_hash": "73bfe7d803d1c635353f1ddc0e06072a18d51140"
+          }
+        },
+        {
+          "client_id": "898647636007-c3tcv2c04dcn17jqu1cg1k78obh3upm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXy4cu2I9DegxAwvQjTYZ8RqHp_mn9k5k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "898647636007-c3tcv2c04dcn17jqu1cg1k78obh3upm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
