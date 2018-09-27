@@ -1,6 +1,9 @@
 package com.example.himanshu.myblogapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,13 +22,14 @@ import com.google.firebase.database.FirebaseDatabase;
 public class AddPostActivity extends AppCompatActivity {
     private ImageView mImage;
     private EditText mtitle;
+    private Uri imageUri;
     private EditText mdesc;
     private Button mSubmit;
     private DatabaseReference mDatabaseReference;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private ProgressDialog mProgress;
-
+    public static final int GALLERY_REQUEST_CODE=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +44,31 @@ public class AddPostActivity extends AppCompatActivity {
         mImage=findViewById(R.id.postimageId);
         mtitle=findViewById(R.id.posttitleId);
         mdesc=findViewById(R.id.postdescId);
+
+        mImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent,GALLERY_REQUEST_CODE);
+            }
+        });
+
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                startPosting();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==GALLERY_REQUEST_CODE&&resultCode==RESULT_OK){
+            imageUri=data.getData();
+            mImage.setImageURI(imageUri);
+        }
     }
 
     private void startPosting() {
