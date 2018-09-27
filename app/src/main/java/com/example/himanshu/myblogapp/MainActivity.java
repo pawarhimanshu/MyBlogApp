@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Signed In",Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(MainActivity.this,PostListActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 else
                 {
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"SignedIn",Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(MainActivity.this,PostListActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 else
                 {

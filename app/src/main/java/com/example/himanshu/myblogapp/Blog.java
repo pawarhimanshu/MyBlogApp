@@ -1,11 +1,11 @@
 package com.example.himanshu.myblogapp;
 
 public class Blog {
-    public String Title;
-    public String Desc;
-    public String Image;
-    public String Time;
-    public String UserId;
+    private String Title;
+    private String Desc;
+    private String Image;
+    private String Time;
+    private String UserId;
 
     public Blog() {
     }
