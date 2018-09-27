@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 if(mUser!=null)
                 {
                     Toast.makeText(MainActivity.this,"Signed In",Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(MainActivity.this,PostListActivity.class);
+                    startActivity(intent);
                 }
                 else
                 {

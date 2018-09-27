@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".AddPostActivity">
+
+    <ImageButton
+        android:id="@+id/postimageId"
+        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="291dp" />
+
+    <EditText
+        android:id="@+id/posttitleId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/input_line"
+        android:hint="Post Title"
+        android:padding="13dp"
+        android:paddingLeft="2dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/postdescId"
+        android:background="@drawable/input_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="18dp"
+        android:paddingLeft="2dp"
+        android:hint="Post Description"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/submitpostId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@color/colorAccent"
+        android:text="Submit Post"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+</LinearLayout>
