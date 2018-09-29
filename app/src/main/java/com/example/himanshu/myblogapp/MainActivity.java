@@ -72,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        CreateAcButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,CreateAccountActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     private void Login(String email, String pwd) {

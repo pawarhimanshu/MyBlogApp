@@ -11,7 +11,9 @@
         android:id="@+id/postimageId"
         android:layout_width="match_parent"
         android:layout_height="291dp"
-         />
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:background="@drawable/addimage" />
 
     <EditText
         android:id="@+id/posttitleId"

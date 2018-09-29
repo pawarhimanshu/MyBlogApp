@@ -12,9 +12,9 @@
         <ImageView
             android:id="@+id/PostImageList"
             android:layout_width="match_parent"
+            android:background="@drawable/addimage"
             android:layout_height="323dp"
             android:adjustViewBounds="true"
-            android:background="@android:drawable/ic_input_add"
             android:cropToPadding="false"
             android:scaleType="centerCrop" />
 
