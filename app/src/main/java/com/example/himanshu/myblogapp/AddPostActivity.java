@@ -18,6 +18,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddPostActivity extends AppCompatActivity {
     private ImageView mImage;
@@ -25,6 +31,7 @@ public class AddPostActivity extends AppCompatActivity {
     private Uri imageUri;
     private EditText mdesc;
     private Button mSubmit;
+    private StorageReference mStorage;
     private DatabaseReference mDatabaseReference;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -37,6 +44,7 @@ public class AddPostActivity extends AppCompatActivity {
 
         mProgress=new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
+        mStorage= FirebaseStorage.getInstance().getReference();
         mUser=mAuth.getCurrentUser();
         mDatabaseReference= FirebaseDatabase.getInstance().getReference().child("Blog");
 
@@ -74,18 +82,36 @@ public class AddPostActivity extends AppCompatActivity {
     private void startPosting() {
         mProgress.setMessage("Posting to Blog........");
         mProgress.show();
-        String titleVal=mtitle.getText().toString().trim();
-        String descVal=mdesc.getText().toString().trim();
+        final String titleVal=mtitle.getText().toString().trim();
+        final String descVal=mdesc.getText().toString().trim();
 
-        if(!TextUtils.isEmpty(titleVal)&&!TextUtils.isEmpty(descVal)){
-           Blog blog=new Blog("title","description","imageUrl","time","userId");
-           mDatabaseReference.setValue(blog).addOnSuccessListener(new OnSuccessListener<Void>() {
-               @Override
-               public void onSuccess(Void aVoid) {
-                   Toast.makeText(getApplicationContext(),"Item Added",Toast.LENGTH_LONG).show();
-                   mProgress.dismiss();
-               }
-           });
+        if(!TextUtils.isEmpty(titleVal)&&!TextUtils.isEmpty(descVal)&&imageUri!=null){
+
+            StorageReference filepath=mStorage.child("Blocg_Images").child(imageUri.getLastPathSegment());
+            filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    Uri downloadUri=taskSnapshot.getDownloadUrl();
+                    DatabaseReference newPost = mDatabaseReference.push();
+
+                    Map<String,String>datatosave=new HashMap<String, String>();
+                    datatosave.put("Title",titleVal);
+                    datatosave.put("Desc",descVal);
+                    datatosave.put("Image",downloadUri.toString());
+                    datatosave.put("Time",String.valueOf(java.lang.System.currentTimeMillis()));
+                    datatosave.put("UserId",mUser.getUid());
+
+                    newPost.setValue(datatosave);
+
+                    mProgress.dismiss();
+                    Intent intent=new Intent(AddPostActivity.this,PostListActivity.class);
+                    startActivity(intent);
+                    finish();
+
+
+                }
+            });
         }
     }
 }

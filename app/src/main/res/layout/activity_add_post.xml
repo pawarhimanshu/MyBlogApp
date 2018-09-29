@@ -9,9 +9,9 @@
 
     <ImageButton
         android:id="@+id/postimageId"
-        android:scaleType="fitCenter"
         android:layout_width="match_parent"
-        android:layout_height="291dp" />
+        android:layout_height="291dp"
+         />
 
     <EditText
         android:id="@+id/posttitleId"

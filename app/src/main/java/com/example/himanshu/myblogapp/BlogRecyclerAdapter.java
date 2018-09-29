@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +18,13 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
     private Context context;
     private List<Blog> blogList;
+
+
+    public BlogRecyclerAdapter(Context context, List<Blog> blogList) {
+        this.context = context;
+        this.blogList = blogList;
+    }
+
 
     @NonNull
     @Override
@@ -26,6 +35,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull BlogRecyclerAdapter.ViewHolder viewHolder, int i) {
+
        Blog blog=blogList.get(i);
        String imageUrl=null;
 
@@ -36,7 +46,8 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
        String formatteddate = dateFormat.format(new Date(Long.valueOf(blog.getTime())).getTime());
        viewHolder.Time.setText(formatteddate);
 
-       imageUrl=blog.getImage();
+         imageUrl=blog.getImage();
+        Picasso.get().load(imageUrl).into(viewHolder.Image);
 
     }
 
