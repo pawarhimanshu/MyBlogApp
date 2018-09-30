@@ -87,7 +87,7 @@ public class AddPostActivity extends AppCompatActivity {
 
         if(!TextUtils.isEmpty(titleVal)&&!TextUtils.isEmpty(descVal)&&imageUri!=null){
 
-            StorageReference filepath=mStorage.child("Blocg_Images").child(imageUri.getLastPathSegment());
+            StorageReference filepath=mStorage.child("Blog_Images").child(imageUri.getLastPathSegment());
             filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

@@ -88,16 +88,17 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(!task.isSuccessful())
+                if(task.isSuccessful())
                 {
                     Toast.makeText(MainActivity.this,"SignedIn",Toast.LENGTH_LONG).show();
+                    FirebaseUser user=mAuth.getCurrentUser();
                     Intent intent=new Intent(MainActivity.this,PostListActivity.class);
                     startActivity(intent);
                     finish();
                 }
                 else
                 {
-                    //TODO
+                    Toast.makeText(MainActivity.this,"Wrong Details Entered",Toast.LENGTH_LONG).show();
                 }
             }
         });

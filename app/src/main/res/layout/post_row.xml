@@ -1,50 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:outlineAmbientShadowColor="@color/colorAccent"
+    android:background="@drawable/input_line"
+    android:padding="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/PostImageList"
             android:layout_width="match_parent"
-            android:background="@drawable/addimage"
             android:layout_height="323dp"
             android:adjustViewBounds="true"
-            android:cropToPadding="false"
-            android:scaleType="centerCrop" />
+            android:background="@drawable/addimage"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/PostTitleList"
             android:layout_width="match_parent"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
             android:padding="10dp"
+            android:layout_marginLeft="6dp"
             android:text="Post Title"
-            android:layout_height="wrap_content" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/PostDescription"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="10dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="15dp"
-            android:text="Post Description"
-            android:layout_height="wrap_content" />
+            android:layout_marginLeft="6dp"
+            android:text="Post Description" />
 
         <TextView
             android:id="@+id/PostDate"
-            android:text="Date Created:"
-            android:textStyle="italic"
-            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:padding="5dp"
+            android:layout_marginLeft="6dp"
+            android:text="Date Created:"
+            android:textStyle="italic" />
         
     </LinearLayout>
 

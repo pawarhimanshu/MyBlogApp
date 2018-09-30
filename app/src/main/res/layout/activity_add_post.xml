@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".AddPostActivity">
+    tools:context=".AddPostActivity"
+    android:padding="10dp">
 
     <ImageButton
         android:id="@+id/postimageId"
         android:layout_width="match_parent"
+        android:padding="15dp"
         android:layout_height="291dp"
         android:adjustViewBounds="true"
-        android:cropToPadding="false"
+        android:scaleType="fitXY"
         android:background="@drawable/addimage" />
 
     <EditText
@@ -22,7 +24,7 @@
         android:layout_marginTop="3dp"
         android:background="@drawable/input_line"
         android:hint="Post Title"
-        android:padding="13dp"
+        android:padding="20dp"
         android:paddingLeft="2dp"
         android:textStyle="bold" />
 
@@ -32,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:padding="18dp"
+        android:padding="20dp"
         android:paddingLeft="2dp"
         android:hint="Post Description"
         android:textStyle="bold" />
@@ -46,4 +48,5 @@
         android:text="Submit Post"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
+
 </LinearLayout>
