@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -23,7 +25,6 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class CreateAccountActivity extends AppCompatActivity {
-
    private  Uri resultUri=null;
    private EditText fname;
    private EditText lname;
@@ -76,6 +77,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
+
     private void CreateNewAccount() {
         final String firstname=fname.getText().toString().trim();
         final String lastname=lname.getText().toString().trim();
@@ -91,32 +93,32 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                     if (authResult != null) {
 
-                        StorageReference imagepath = mfirebaseStorage.child("Blog_Profile_Pics").child(resultUri.getLastPathSegment());
+                            StorageReference imagepath = mfirebaseStorage.child("Blog_Profile_Pics").child(resultUri.getLastPathSegment());
+
                         imagepath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    String Userid = mAuth.getCurrentUser().getUid();
+                                    DatabaseReference currentUserDb = mdatabaseReference.child(Userid);
+                                    currentUserDb.child("FirstName").setValue(firstname);
+                                    currentUserDb.child("LastName").setValue(lastname);
+                                    currentUserDb.child("Image").setValue(resultUri.toString());
+                                    progressDialog.dismiss();
 
-                                String Userid = mAuth.getCurrentUser().getUid();
-                                DatabaseReference currentUserDb = mdatabaseReference.child(Userid);
-                                currentUserDb.child("FirstName").setValue(firstname);
-                                currentUserDb.child("LastName").setValue(lastname);
-                                currentUserDb.child("Image").setValue(resultUri.toString());
-
-                                progressDialog.dismiss();
-
-                                Intent intent = new Intent(CreateAccountActivity.this, PostListActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                            }
+                                    Intent intent = new Intent(CreateAccountActivity.this, PostListActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
 
                         });
 
                     }
                 }
             });
-
         }
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+
    private FirebaseAuth mAuth;
    private FirebaseUser mUser;
    private FirebaseAuth.AuthStateListener mAuthListener;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    
+                    Toast.makeText(MainActivity.this,"Enter email and pwd",Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -91,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 if(task.isSuccessful())
                 {
                     Toast.makeText(MainActivity.this,"SignedIn",Toast.LENGTH_LONG).show();
-                    FirebaseUser user=mAuth.getCurrentUser();
                     Intent intent=new Intent(MainActivity.this,PostListActivity.class);
                     startActivity(intent);
                     finish();
@@ -103,25 +103,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.add_posts)
-        {
-            // TODO: 27-09-2018
-        }
-        if(item.getItemId()==R.id.sign_out)
-        {
-            mAuth.signOut();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

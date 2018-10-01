@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".CreateAccountActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="* User should enter all the fields with profile picture"
+        android:textAlignment="center"
+        android:textStyle="bold"/>
+
     <EditText
         android:id="@+id/FnameId"
         android:layout_width="match_parent"
@@ -65,7 +72,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Password"
+        android:hint="Password  (minimum 6 letters)"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,52 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".AddPostActivity"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:id="@+id/linearLayout">
 
     <ImageButton
         android:id="@+id/postimageId"
         android:layout_width="match_parent"
-        android:padding="15dp"
         android:layout_height="291dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
+        android:background="@drawable/addimage"
+        android:padding="15dp"
         android:scaleType="fitXY"
-        android:background="@drawable/addimage" />
+        app:layout_constraintBottom_toTopOf="@+id/posttitleId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19"
+        tools:layout_conversion_absoluteHeight="291dp"
+        tools:layout_conversion_absoluteWidth="364dp" />
 
     <EditText
         android:id="@+id/posttitleId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/input_line"
         android:hint="Post Title"
         android:padding="20dp"
         android:paddingLeft="2dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/postdescId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_conversion_absoluteHeight="65dp"
+        tools:layout_conversion_absoluteWidth="364dp" />
 
     <EditText
         android:id="@+id/postdescId"
-        android:background="@drawable/input_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="376dp"
+        android:background="@drawable/input_line"
+        android:hint="Post Description"
         android:padding="20dp"
         android:paddingLeft="2dp"
-        android:hint="Post Description"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="65dp"
+        tools:layout_conversion_absoluteWidth="364dp" />
 
     <Button
         android:id="@+id/submitpostId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="72dp"
         android:background="@color/colorAccent"
         android:text="Submit Post"
         android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postdescId"
+        tools:layout_conversion_absoluteHeight="19dp"
+        tools:layout_conversion_absoluteWidth="364dp" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

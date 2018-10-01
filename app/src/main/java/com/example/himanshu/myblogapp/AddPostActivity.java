@@ -80,13 +80,12 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
     private void startPosting() {
-        mProgress.setMessage("Posting to Blog........");
-        mProgress.show();
         final String titleVal=mtitle.getText().toString().trim();
         final String descVal=mdesc.getText().toString().trim();
 
         if(!TextUtils.isEmpty(titleVal)&&!TextUtils.isEmpty(descVal)&&imageUri!=null){
-
+            mProgress.setMessage("Posting to Blog........");
+            mProgress.show();
             StorageReference filepath=mStorage.child("Blog_Images").child(imageUri.getLastPathSegment());
             filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -113,5 +112,9 @@ public class AddPostActivity extends AppCompatActivity {
                 }
             });
         }
+        else{
+            Toast.makeText(AddPostActivity.this,"Complete All Fields",Toast.LENGTH_LONG).show();
+        }
     }
+
 }

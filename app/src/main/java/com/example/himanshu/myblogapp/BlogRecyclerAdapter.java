@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
@@ -49,6 +48,8 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
          imageUrl=blog.getImage();
         Picasso.get().load(imageUrl).into(viewHolder.Image);
 
+        viewHolder.username.setText("Posted by : "+blog.getUserId());
+
     }
 
     @Override
@@ -57,6 +58,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView username;
         public TextView Title;
         public TextView Desc;
         public TextView Time;
@@ -67,6 +69,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             super(view);
             ctx=context;
 
+            username=view.findViewById(R.id.UserName_Id);
             Title=view.findViewById(R.id.PostTitleList);
             Desc=view.findViewById(R.id.PostDescription);
             Time=view.findViewById(R.id.PostDate);
