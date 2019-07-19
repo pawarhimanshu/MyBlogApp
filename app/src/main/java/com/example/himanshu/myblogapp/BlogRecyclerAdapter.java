@@ -8,6 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
@@ -17,6 +21,9 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
     private Context context;
     private List<Blog> blogList;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mdatabaseReference;
 
 
     public BlogRecyclerAdapter(Context context, List<Blog> blogList) {
@@ -29,6 +36,9 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
     @Override
     public BlogRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.post_row,viewGroup,false);
+        mAuth= FirebaseAuth.getInstance();
+        mDatabase=FirebaseDatabase.getInstance();
+        mdatabaseReference=mDatabase.getReference().child("Users");
         return new ViewHolder(view,context);
     }
 
@@ -48,7 +58,12 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
          imageUrl=blog.getImage();
         Picasso.get().load(imageUrl).into(viewHolder.Image);
 
-        viewHolder.username.setText("Posted by : "+blog.getUserId());
+        String Userid = mAuth.getCurrentUser().getUid();
+        DatabaseReference currentUserDb = mdatabaseReference.child(Userid);
+
+
+
+        viewHolder.username.setText("Posted by : "+blog.getUserName());
 
     }
 

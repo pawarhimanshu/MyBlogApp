@@ -36,6 +36,7 @@ public class AddPostActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private ProgressDialog mProgress;
+    private String username;
     public static final int GALLERY_REQUEST_CODE=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +95,19 @@ public class AddPostActivity extends AppCompatActivity {
                     Uri downloadUri=taskSnapshot.getDownloadUrl();
                     DatabaseReference newPost = mDatabaseReference.push();
 
+                    String Userid = mAuth.getCurrentUser().getUid();
+                    DatabaseReference currentUserDb = mDatabaseReference.child(Userid);
+                    username = currentUserDb.child("UserName").getKey();
+
+
+
                     Map<String,String>datatosave=new HashMap<String, String>();
                     datatosave.put("Title",titleVal);
                     datatosave.put("Desc",descVal);
                     datatosave.put("Image",downloadUri.toString());
                     datatosave.put("Time",String.valueOf(java.lang.System.currentTimeMillis()));
                     datatosave.put("UserId",mUser.getUid());
+                    datatosave.put("UserName",username);
 
                     newPost.setValue(datatosave);
 

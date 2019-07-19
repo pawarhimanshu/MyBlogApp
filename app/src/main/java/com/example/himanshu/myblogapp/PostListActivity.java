@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +42,6 @@ public class PostListActivity extends AppCompatActivity {
         mDatabase=FirebaseDatabase.getInstance();
         mDatabaseRefernce=mDatabase.getReference().child("Blog");
         mDatabaseRefernce.keepSynced(true);
-
         blogList=new ArrayList<>();
         recyclerView=findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -85,7 +85,6 @@ public class PostListActivity extends AppCompatActivity {
         mDatabaseRefernce.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                 Blog blog=dataSnapshot.getValue(Blog.class);
                 blogList.add(blog);
                 Collections.reverse(blogList);

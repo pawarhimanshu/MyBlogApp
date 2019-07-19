@@ -3,6 +3,7 @@ package com.example.himanshu.myblogapp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +25,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateAccountActivity extends AppCompatActivity {
    private  Uri resultUri=null;
@@ -37,6 +42,7 @@ public class CreateAccountActivity extends AppCompatActivity {
    private FirebaseAuth mAuth;
    private ProgressDialog progressDialog;
    private ImageButton profile;
+   private Uri imageUri;
    private static int  GalleryIntent=2;
 
     @Override
@@ -83,26 +89,36 @@ public class CreateAccountActivity extends AppCompatActivity {
         final String lastname=lname.getText().toString().trim();
         String Email=email.getText().toString().trim();
         String pwd=password.getText().toString().trim();
+        final String UserName=firstname+" "+lastname;
 
-        if(firstname!=null&&lastname!=null&&Email!=null&&pwd!=null) {
+
+        if(!firstname.equals("")&&!lastname.equals("")&&!Email.equals("")&&!pwd.equals("")&&resultUri!=null) {
             progressDialog.setMessage("Creating Account.....");
             progressDialog.show();
             mAuth.createUserWithEmailAndPassword(Email, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
                 public void onSuccess(AuthResult authResult) {
 
-                    if (authResult != null) {
+                    if (authResult != null&&resultUri!=null) {
 
                             StorageReference imagepath = mfirebaseStorage.child("Blog_Profile_Pics").child(resultUri.getLastPathSegment());
 
-                        imagepath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            imagepath.putFile(resultUri).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(CreateAccountActivity.this, "Add Profile pic",Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     String Userid = mAuth.getCurrentUser().getUid();
                                     DatabaseReference currentUserDb = mdatabaseReference.child(Userid);
+
                                     currentUserDb.child("FirstName").setValue(firstname);
                                     currentUserDb.child("LastName").setValue(lastname);
                                     currentUserDb.child("Image").setValue(resultUri.toString());
+                                    currentUserDb.child("UserName").setValue(UserName);
+
                                     progressDialog.dismiss();
 
                                     Intent intent = new Intent(CreateAccountActivity.this, PostListActivity.class);
@@ -110,11 +126,16 @@ public class CreateAccountActivity extends AppCompatActivity {
                                     finish();
                                 }
 
-                        });
+                            });
 
                     }
+
                 }
             });
+
+        }
+        else{
+            Toast.makeText(CreateAccountActivity.this, "Fill Complete Details", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -125,7 +146,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==GalleryIntent&&resultCode==RESULT_OK){
-            Uri imageUri=data.getData();
+             imageUri=data.getData();
 
             CropImage.activity(imageUri).setAspectRatio(1,1)
                     .setGuidelines(CropImageView.Guidelines.ON)
